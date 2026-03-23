@@ -52,6 +52,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
+    domain: env.NODE_ENV === 'production' ? '.up.railway.app' : 'localhost',
+    path: '/',
     secure: env.NODE_ENV === 'production',
     httpOnly: true,
     sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
