@@ -52,7 +52,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    domain: 'sitepay.online',
+    domain: 'www.sitepay.online',
     secure: true,
     httpOnly: true,
     sameSite: 'none',
