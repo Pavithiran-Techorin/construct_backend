@@ -11,6 +11,7 @@ interface EnvConfig {
   POSTGRES_PASSWORD: string;
   SESSION_SECRET: string;
   SESSION_MAX_AGE: number;
+  SESSION_DOMAIN: string;
   FRONTEND_URL: string;
 }
 
@@ -46,6 +47,7 @@ function validateEnv(): EnvConfig {
     POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD!,
     SESSION_SECRET: process.env.SESSION_SECRET!,
     SESSION_MAX_AGE: parseInt(process.env.SESSION_MAX_AGE || '86400000'),
+    SESSION_DOMAIN: process.env.SESSION_DOMAIN || 'localhost',
     FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:3000',
   };
 }
