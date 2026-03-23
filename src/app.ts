@@ -52,12 +52,11 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    domain: env.NODE_ENV === 'production' ? env.SESSION_DOMAIN : 'localhost',
-    path: '/',
-    secure: env.NODE_ENV === 'production',
+    domain: 'sitepay.online',
+    secure: true,
     httpOnly: true,
-    sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
-    maxAge: env.SESSION_MAX_AGE, // 24h
+    sameSite: 'none',
+    maxAge: 86400000, // 24h
   },
 }));
 
