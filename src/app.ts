@@ -26,6 +26,8 @@ const sessionStore = new PgSession({
   createTableIfMissing: false,
 });
 
+const isProduction = env.NODE_ENV === 'production';
+
 // ── Middleware ────────────────────────────────────────────────────────────────
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
@@ -45,17 +47,23 @@ app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Required when running behind Railway/Nginx/Cloudflare so secure cookies are honored.
+if (isProduction) {
+  app.set('trust proxy', 1);
+}
+
 app.use(session({
   store: sessionStore,
   secret: env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  proxy: isProduction,
   cookie: {
-    domain: 'sitepay.online',
-    secure: true,
+    domain: isProduction ? env.SESSION_DOMAIN : undefined,
+    secure: isProduction,
     httpOnly: true,
-    sameSite: 'none',
-    maxAge: 86400000, // 24h
+    sameSite: isProduction ? 'none' : 'lax',
+    maxAge: env.SESSION_MAX_AGE,
   },
 }));
 
