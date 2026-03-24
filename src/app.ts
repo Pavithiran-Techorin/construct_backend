@@ -15,7 +15,6 @@ import { swaggerSpec } from './config/swagger';
 import { logger, requestLogger } from './utils/logger';
 import { errorMessages } from './utils/properties';
 import apiRoutes from './routes/index';
-
 const app = express();
 
 // ── Session store in PostgreSQL ──────────────────────────────────────────────
@@ -52,7 +51,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    domain: 'www.sitepay.online',
+    domain: 'sitepay.online',
     secure: true,
     httpOnly: true,
     sameSite: 'none',
